@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes App</title>
+    <link rel="stylesheet" href="my-notes.css" />
+    <link rel="stylesheet" href="css/all.min.css">
+</head>
+<body>
+    <div id="custom-dialog" class="dialog-overlay">
+        <div id="dialog-box">
+            <p id="dialog-msg">This is a dialogue-box</p>
+            <div id="dialog-btns">
+                <button class="button" id="yes-confirm" type="button">Yes</button>
+                <button class="button" id="no-confirm" type="No">No</button>
+            </div>
+        </div>
+    </div>
+    <header>
+        <nav id="header">
+            <nav id="header-one">
+            <ul>
+                <li class="slide-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </li>
+                <li id="brand-name">Twigs Notes</li>
+            </ul>
+            <ul id="more-options">
+                <li>
+                    <button class="top-add-btn addy">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </li>
+                <li id="kebab-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </li>
+            </ul>
+        </nav>
+        <ul id="header-ul">
+            <li id="notes-menu">Notes</li>
+            <li id="tasks-menu">Tasks</li>
+        </ul>
+        
+        </nav>
+    </header>
+    <div id="body">
+    <nav class="sidebar" id="sidebar">
+        <div id="notes-menu-div">
+            <div class="slidebar-content">
+                <ul id="slide-nav">
+                    <li id="brand-name">Twigs Notes</li>
+                    <li class="slide-nav-menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </li>
+                </ul>
+                <div id="slidebar-more">
+                    <p class="section-title">NOTES</p>
+                    <div class="slide-bar-navigate" id="all-the-notes-btn">
+                    <ul id="slidebar-allnotes-btn">
+                        <li><i class="fa-solid fa-pen-to-square"></i> </li>
+                        <li>All Notes</li>
+                    </ul>
+                    <span id="all-notes-count">0</span>
+                    </div>
+                    <div class="slide-bar-navigate" id="all-favorite-notes-btn">
+                    <ul id="slidebar-favorites-btn">
+                        <li><i class="fa-solid fa-star"></i></li>
+                        <li>Favorites</li>
+                    </ul>
+                    <span id="all-favorite-notes-count">0</span>
+                    </div>
+                    <hr>
+                    <p>Categories</p>
+                    <div id="manage-categories"><button class="button" type="button">Manage Categories</button></div>
+                    
+                </div>
+                <hr class="my-hr">
+                <div class="menu-end-note">
+                    <p>Made with 💙 by Twigstin</p>
+                    <div class="social-icons">
+                    <a class="icon x" href="http://www.x.com/twigstin7"><i class="fab fa-x-twitter"></i></a>                    
+                    <a class="icon linkedin" href="https://www.linkedin.com"><i class="fab fa-linkedin-in"></i></a>
+                    <a class="icon github" href="https://www.github.com/Twigstin"><i class="fab fa-github"></i></a>
+                    <a class="icon youtube" href="https://www.youtube.com"><i class="fab fa-youtube"></i></a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div id="tasks-menu-div">         
+            <div class="task-menu-section">
+                <p class="section-title">TASKS</p>
+                <div>
+                    <ul>
+                        <li><i class="fa-solid fa-list-check"></i></li>
+                        <li>All Tasks<li>
+                    </ul>
+                    <ul><li>0</li></ul>
+                </div>
+                <div>
+                    <ul>
+                        <li><i class="fa-solid fa-angles-right"></i></li>
+                        <li>Upcoming<li>
+                    </ul>
+                    <ul><li>0</li></ul>
+                </div>
+                <div>
+                    <ul>
+                        <li><i class="fa-solid fa-calendar"></i></li>
+                        <li>Today<li>
+                    </ul>
+                    <ul><li>0</li></ul>
+                </div>
+                <div>
+                    <ul>
+                        <li><i class="fa-solid fa-flag flag-left"></i></li>
+                        <li>Important<li>
+                    </ul>
+                    <ul><li>0</li></ul>
+                </div>
+                <div>
+                    <ul>
+                        <li><i class="fa-solid fa-check-double"></i></li>
+                        <li>Completed<li>
+                    </ul>
+                    <ul><li>0</li></ul>
+                </div>
+            </div>
+            <hr>
+            <div class="task-menu-section">
+                <p class="section-title">LISTS</p>
+                <div>
+                    <ul>
+                        <li><i class="fa-solid fa-square"></i></li>
+                        <li>Personal<li>
+                    </ul>
+                    <ul><li>0</li></ul>
+                </div>
+                <div>
+                    <ul>
+                        <li><i class="fa-solid fa-square"></i></li>
+                        <li>Work<li>
+                    </ul>
+                    <ul><li>0</li></ul>
+                </div>
+                <div>
+                    <ul>
+                        <li><i class="fa-solid fa-square"></i></li>
+                        <li>Home<li>
+                    </ul>
+                    <ul><li>0</li></ul>
+                </div>
+                <div>
+                    <ul>
+                        <li><i class="fa-solid fa-plus"></i></li>
+                        <li>Add New List<li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div id="task-tags-section">
+                <p class="section-title">TAGS</p>
+                <div>
+                    <div>
+                    <p class="tag-category">Priority</p>
+                    <ul>
+                        <li>Urgent</li>
+                        <li>High</li>
+                        <li>Medium</li>
+                        <li>Low</li>
+                    </ul>
+                    <ul><li><span class="tags-add"><i class="fa-solid fa-plus"></i></span>Add Priority Tag</li></ul>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                    <p  class="tag-category">Context</p>
+                    <ul>
+                        <li>Home</li>
+                        <li>Work</li>
+                        <li>Online</li>
+                    </ul>
+                    <ul><li><span class="tags-add"><i class="fa-solid fa-plus"></i></span>Add Context Tag</li></ul>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                    <p class="tag-category">Time</p>
+                    <ul>
+                        <li>Quick</li>
+                        <li>Focus</li>
+                    </ul>
+                    <ul><li><span class="tags-add"><i class="fa-solid fa-plus"></i></span>Add Time Tag</li></ul>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <p class="tag-category">Others</p>
+                        <ul id="new-tags"></ul>
+                        <div class="add-new-tags"><span class="tags-add"><i class="fa-solid fa-plus"></i></span>Add New Tag</div>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-hr">
+                <div class="menu-end-note">
+                    <p>Made with 💙 by Twigstin</p>
+                    <div class="social-icons">
+                    <a class="icon x" href="http://www.x.com/twigstin7"><i class="fab fa-x-twitter"></i></a>                    
+                    <a class="icon linkedin" href="https://www.linkedin.com"><i class="fab fa-linkedin-in"></i></a>
+                    <a class="icon github" href="https://www.github.com/Twigstin"><i class="fab fa-github"></i></a>
+                    <a class="icon youtube" href="https://www.youtube.com"><i class="fab fa-youtube"></i></a>
+                </div>
+                </div>
+        </div>
+        </nav>
+        <div id="note-edit-page">
+            <div>
+                <p class="app-editpage-desc">Note:</p>
+            <div id="note-title-div">
+                <div id="note-edit-page-exit-btn-div">
+                    <i class="fa-solid fa-angle-left"></i>
+                </div>
+                <input type="text" id="note-title" placeholder="Note Title...">
+                <button type="button" class="add-to-favorites-btn"><i class="fa-regular fa-star"></i> </button>
+                <button type="button" id="save-note-btn"><i class="fa fa-save"></i></button>
+            <!--
+            <div id="note-edit-page-kebab-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+            </div>
+            -->
+            </div>
+            <div id="note-desc-div">
+            <textarea id="note-desc" placeholder="Note Description..."></textarea>
+            </div>
+            </div>
+        </div>
+
+        <!--create tasks edit page-->
+        <div id="task-edit-page">
+            <div>
+                <p class="app-editpage-desc">Task:</p>
+            <div id="task-title-div">
+                <div id="task-edit-page-exit-btn-div">
+                    <i class="fa-solid fa-angle-left"></i>
+                </div>
+                <input type="text" id="task-title" placeholder="Task Title...">
+                <button type="button" class="completed-task-btn"><i class="fa-solid fa-check-double"></i></button>
+                <button type="button" class="important-flag-btn"><i class="fa-solid fa-flag flag-left"></i></button>
+                <button type="button" id="save-task-btn"><i class="fa fa-save"></i></button>
+            <!--
+            <div id="task-edit-page-kebab-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+            </div>
+            -->
+            </div>
+            <div id="note-desc-div">
+            <textarea id="task-desc" placeholder="Task Description..."></textarea>
+            </div>
+            </div>
+        </div>
+
+    <main>
+        <div id="main">
+            <input type="search" placeholder="Search Notes" class="search-bar">
+            <p class="all-notes-par" id="note-categories-text">All Notes</p>
+            <div id="note-list"></div>
+            <button class="add-btn button addy">
+                <i class="fa-solid fa-plus"></i>
+            </button>
+        </div>
+
+        <div id="tasks-display">
+            <input type="search" placeholder="Search Tasks" class="search-bar">
+            <!--<input type="text" placeholder="Add Task" class="add-task-input">-->
+            <p class="all-notes-par">All Tasks</p>
+            
+            <div id="task-list"></div>
+
+            <button class="add-btn addy">
+                <i class="fa-solid fa-plus"></i>
+            </button>        
+        </div>
+    </main>
+    </div>
+    <script src="new.js"></script>
+</body>
+</html>
