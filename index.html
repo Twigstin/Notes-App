@@ -26,7 +26,7 @@
                     <span></span>
                     <span></span>
                 </li>
-                <li id="brand-name">Twigs Notes</li>
+                <li class="brand-name">Twigs Notes</li>
             </ul>
             <ul id="more-options">
                 <li>
@@ -52,8 +52,8 @@
     <nav class="sidebar" id="sidebar">
         <div id="notes-menu-div">
             <div class="slidebar-content">
-                <ul id="slide-nav">
-                    <li id="brand-name">Twigs Notes</li>
+                <ul class="slide-nav">
+                    <li class="brand-name">Twigs Notes</li>
                     <li class="slide-nav-menu">
                         <span></span>
                         <span></span>
@@ -93,8 +93,17 @@
                 </div>
             </div>
         </div>
-        <div id="tasks-menu-div">         
+        <div id="tasks-menu-div">
+            <ul class="slide-nav">
+                    <li class="brand-name">Twigs Notes</li>
+                    <li class="slide-nav-menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </li>
+                </ul>       
             <div class="task-menu-section">
+                
                 <p class="section-title">TASKS</p>
                 <div>
                     <ul>
@@ -263,7 +272,7 @@
             </div>
             -->
             </div>
-            <div id="note-desc-div">
+            <div id="task-desc-div">
             <textarea id="task-desc" placeholder="Task Description..."></textarea>
             </div>
             </div>
@@ -271,7 +280,7 @@
 
     <main>
         <div id="main">
-            <input type="search" placeholder="Search Notes" class="search-bar">
+            <input type="search" placeholder="Search Notes" class="search-bar note">
             <p class="all-notes-par" id="note-categories-text">All Notes</p>
             <div id="note-list"></div>
             <button class="add-btn button addy">
@@ -280,7 +289,7 @@
         </div>
 
         <div id="tasks-display">
-            <input type="search" placeholder="Search Tasks" class="search-bar">
+            <input type="search" placeholder="Search Tasks" id="task-search-bar" class="search-bar task">
             <!--<input type="text" placeholder="Add Task" class="add-task-input">-->
             <p class="all-notes-par">All Tasks</p>
             
@@ -295,4 +304,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-
