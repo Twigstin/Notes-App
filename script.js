@@ -65,7 +65,6 @@ class NotesApp {
         this.addToFavoritesBtnOn = false;
         this.currentEditId = null;
         this.isOnFavoriteNotes = false;
-        this.isOnFavoriteNotes = false;
         this.isOnAllNotes = true;
 
         //get dom elements
@@ -142,7 +141,7 @@ class NotesApp {
     }
 
     searchNotes(searchText) {
-        if(this.mainApp.onNotes) {
+        
             //create a temporary database for filterdNotes
             
                     searchText = searchText.toLowerCase();
@@ -157,6 +156,7 @@ class NotesApp {
                         } else {
                             this.render()
                         }
+                        return;
                     }
                     
                     if (filteredNotes.length === 0) {
@@ -174,7 +174,7 @@ class NotesApp {
                         } else {
                             this.render(filteredNotes)
                         }
-                    }
+                    
                 }
     }
 
@@ -306,7 +306,7 @@ class TasksApp {
     }
 
     //create a method to  add tasks
-    addTask(title, desc, category, tag, list) {
+    addTask(title, desc, category = "General", tag = "None", list = ["Sample item"]) {
         //id, title, desc, dateCreated, category, tag, list
         const id = Date.now();
         title = title.trim();
@@ -337,11 +337,11 @@ class TasksApp {
     }
 
     //create update task method
-    updateTask(currentTaskEditId, newTitle, newDesc, newCategory, newTag, newList) {
+    updateTask(currentEditId, newTitle, newDesc, newCategory = "General", newTag = "None", newList = ["Sample item"]) {
         //id, title, desc, dateCreated, category, tag, list
-        const taskToEdit = this.allTasks.find(task => task.id === currentTaskEditId);
+        const taskToEdit = this.allTasks.find(task => task.id === currentEditId);
         this.allTasks = this.allTasks.map(task => {
-            if (task.id === currentTaskEditId) {
+            if (task.id === currentEditId) {
                 return {
                     ...task,
                     title: newTitle,
@@ -368,6 +368,7 @@ class TasksApp {
 
                     if(searchText.trim() === "") {
                         this.render()
+                        return;
                     }
                     
                     if (filteredTasks.length === 0) {
@@ -384,10 +385,7 @@ class TasksApp {
     }
 
     //create tasks render function
-    render(mainTasks = null) {
-        if (!mainTasks) {
-            mainTasks = this.allTasks;
-        }
+    render(mainTasks = this.allTasks) {
 
 
         
@@ -407,11 +405,8 @@ class TasksApp {
             mainTasks.forEach(task => {
                 const taskDiv = document.createElement("div");
                 taskDiv.classList.add("task");
-                taskDiv.classList.add("button");
+                taskDiv.classList.add("task-list-child")                
 
-                taskDiv.addEventListener("click", () => {
-                    this.editNote(task.id);
-                });
                 taskDiv.innerHTML = `
                             <ul class="main-task-txt">
                                 <li>
@@ -419,7 +414,7 @@ class TasksApp {
                                 </li>
                                 <li class="task-title">${task.title}</li>
                             </ul>
-                            <ul class="task-delete-btn">
+                            <ul class="task-delete-btn button">
                                 <li><i class="fas fa-trash"></i></li>
                             </ul>
                             <ul>
@@ -433,20 +428,41 @@ class TasksApp {
   // Make note editable when clicked
         taskDiv.addEventListener("click", (e) => {
             if (!e.target.closest(".task-delete-btn")) {
-                this.editNote(task.id);
+                this.editTask(task.id);
             }
         });
+
+        taskDiv.addEventListener("click", (e) => {
+                    if (e.target.classList.contains("task-checkbox") || e.target.closest(".task-delete-btn")) return;
+
+                    this.editTask(task.id);
+                });
+
+                const checkbox = taskDiv.querySelector(".task-checkbox");
+                checkbox.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    const task = e.target.closest(".task");
+                    const text = task.querySelector(".task-title");
+
+                    if (e.target.checked) {
+                        text.classList.add("completed")
+                    } else {
+                        text.classList.remove("completed")
+                    }
+                });
+
+
         this.tasksCtn.appendChild(taskDiv);
         
     })
     }
     //save to local storage
-    this.saveNote();
+    this.saveTask();
     }
 
 
     //create method edit task functionality
-    editNote(id) {
+    editTask(id) {
     //Get note being edited
         const taskToEdit = this.allTasks.find(task => task.id === id);
 
@@ -459,6 +475,11 @@ class TasksApp {
         //this.noteEditPage.classList.add("active");
         this.taskTitleinput.value = taskToEdit.title;
         this.taskDescInput.value = taskToEdit.desc;
+
+        this.mainApp.taskEditPage.classList.add("active");
+
+    // Disable background scroll if needed
+        this.mainApp.updateScrollLock();
 
         
         /**
@@ -474,6 +495,8 @@ class TasksApp {
             this.addToFavoritesBtnOn = false;
         }
              */
+
+
     }
 
     saveTask() {
@@ -496,15 +519,21 @@ class MainApp {
         this.notesCtn = document.getElementById("note-list");
         this.addbtns = document.querySelectorAll(".addy");
         this.noteEditPage = document.getElementById("note-edit-page")
-        this.noteEditPageKebabMenuBtn = document.getElementById("note-edit-page-exit-btn-div")
+        this.noteEditPageKebabMenuBtn = document.getElementById("note-edit-page-exit-btn-div");
+        this.taskEditPageKebabMenuBtn = document.getElementById("task-edit-page-exit-btn-div")
         this.noteTitleinput = document.querySelector("#note-title-div input");
-        this.noteDescInput = document.querySelector("#note-desc-div textarea")
+        this.noteDescInput = document.querySelector("#note-desc-div textarea");
+
+        this.taskTitleinput = document.querySelector("#task-title-div input");
+        this.taskDescInput = document.querySelector("#task-desc-div textarea")
+
         this.slidebar = document.getElementById("sidebar");
         this.notesMenu = document.getElementById("notes-menu");
         this.tasksMenu = document.getElementById("tasks-menu");
         this.notesDisplay = document.getElementById("main");
         this.tasksDisplay = document.getElementById("tasks-display");
         this.saveNoteBtn = document.getElementById("save-note-btn");
+        this.saveTaskBtn = document.getElementById("save-task-btn");
         this.slideIcon = document.querySelector(".slide-menu");
         this.dialogOverlay = document.getElementById("custom-dialog");
         this.dialogMsg = document.getElementById("dialog-msg");
@@ -519,11 +548,13 @@ class MainApp {
         this.noteCategoryText = document.getElementById("note-categories-text");
         this.allNotesCount = document.getElementById("all-notes-count");
         this.allFavoriteNotesCount = document.getElementById("all-favorite-notes-count");
-        this.searchBar = document.querySelectorAll(".search-bar");
+        this.searchBar = document.querySelector(".search-bar.note");
         this.tasksList = document.getElementById("task-list");
         this.notesMenuDiv = document.getElementById("notes-menu-div");
         this.tasksMenuDiv = document.getElementById("tasks-menu-div");
         this.taskEditPage = document.getElementById("task-edit-page");
+
+        this.taskSearchBar = document.querySelector(".search-bar.task");
 
         //add dom funtionalities
         this.addbtns.forEach(btn => {
@@ -604,6 +635,48 @@ class MainApp {
 
         })
 //save button functionality end
+
+//add functionality to save tasks buton
+this.saveTaskBtn.addEventListener("click", () => {
+            const title = this.taskTitleinput.value.trim();
+            const desc = this.taskDescInput.value.trim();
+    
+    
+            if(!title && !desc) {
+                alert("Please fill in the title and description");
+                return;
+            }
+            
+            if(this.tasksApp.editMode) {
+                this.tasksApp.updateTask(this.tasksApp.currentEditId, title, desc)
+            
+        //After that, render UI feedback with render function
+                this.tasksApp.render()
+
+        //Then reset return all elements inputs display and modes to default
+                this.taskEditPage.classList.remove("active");
+                this.tasksApp.editMode = false;
+                this.tasksApp.currentEditId = null;
+            }
+            else {
+                this.tasksApp.addTask(title, desc);                
+            }
+
+            this.tasksApp.saveTask();
+
+    //then render ui feedback
+            this.tasksApp.render();
+
+    //return all elements display to default
+            this.taskTitleinput.value = "";
+            this.taskDescInput.value = "";
+            this.taskEditPage.classList.remove("active");
+            this.updateScrollLock();
+            this.tasksApp.editMode = false;
+            this.tasksApp.currentEditId = null;
+        })
+
+    //save task button functionality end
 
         if (this.onNotes) {
             this.notesMenu.classList.add("toggled");
@@ -782,6 +855,86 @@ class MainApp {
             }
         });
 
+
+
+
+
+
+
+
+
+
+
+
+
+        this.taskEditPageKebabMenuBtn.addEventListener("click", () => {
+            const title = this.taskTitleinput.value.trim();
+            const desc = this.taskDescInput.value.trim();
+            
+            if (this.tasksApp.editMode) {
+                this.showCustomDialog.showCustomDialog("Do you want to save changes made on this task?")
+                    .then((confirmed) => {
+                        if (confirmed) {
+                            this.tasksApp.updateTask(this.tasksApp.currentEditId, title, desc)
+
+                            this.tasksApp.saveTask()
+                        }
+
+                // Whether confirmed or not, close the editor afterward
+                        this.tasksApp.render();
+
+                // Reset inputs & mode
+                        this.taskEditPage.classList.remove("active");
+                        this.updateScrollLock();
+                        this.taskTitleinput.value = "";
+                        this.taskDescInput.value = "";
+                        this.tasksApp.editMode = false;
+                        this.tasksApp.currentEditId = null;
+                    });
+            } else if (!this.tasksApp.editMode && (this.taskDescInput.value.trim() !== "" || this.taskTitleinput.value.trim() !== "")) {
+                this.showCustomDialog.showCustomDialog("Do you want to save this new task?")
+                    .then((confirmed) => {
+                        if (confirmed) {
+                            this.tasksApp.addTask(title, desc)
+
+                            this.tasksApp.saveTask()
+                        }
+
+                // Whether confirmed or not, close the editor afterward
+                        this.tasksApp.render();
+
+                // Reset inputs & mode
+                        this.taskEditPage.classList.remove("active");
+                        this.updateScrollLock();
+                        this.taskTitleinput.value = "";
+                        this.taskDescInput.value = "";
+                        this.tasksApp.editMode = false;
+                        this.tasksApp.currentEditId = null;
+                    });
+            } 
+    
+            else {
+        // If not in edit mode
+                this.taskEditPage.classList.remove("active");
+                this.updateScrollLock();
+                this.taskTitleinput.value = "";
+                this.taskDescInput.value = "";
+        
+                this.tasksApp.render();
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
         this.addFavoritesBtn.addEventListener("click", () => {
             if(this.addFavoritesBtn.classList.contains("fa-regular")) {
                 this.addFavoritesBtn.classList.remove("fa-regular");
@@ -832,10 +985,11 @@ class MainApp {
             this.notesApp.render(allFavoriteNotes)
         })
 
-        this.searchBar.forEach(bar => {
-            bar.addEventListener("input", (e) => {
+        this.searchBar.addEventListener("input", (e) => {
                 this.notesApp.searchNotes(e.target.value);
             })
+        this.taskSearchBar.addEventListener("input", (e) => {
+            this.tasksApp.searchTasks(e.target.value);
         })
 
         //add tasks app functionality
@@ -868,6 +1022,7 @@ class MainApp {
     
     render() {
         this.notesApp.render();
+        this.tasksApp.render()
     }
 }
 
