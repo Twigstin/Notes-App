@@ -75,14 +75,14 @@
 
 @font-face {
     font-family: 'inter';
-    src: url('Inter-Regular.woff') format('woff');
+    src: url('notes-info-files/Inter-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'montserrat';
-    src: url('Montserrat-Bold.woff') format('woff');
+    src: url('notes-info-files/Montserrat-Bold.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
@@ -1264,5 +1264,6 @@ input[type="checkbox"]:hover {
 .sidebar {
   overflow-y: auto;
 }
+
 
 
